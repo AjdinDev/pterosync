@@ -426,6 +426,11 @@ function pterosync_TestConnection(array $params)
 function pterosync_CreateAccount(array $params)
 {
 
+    //if addonId is not 0 , add it to extrnal_id
+    if ($params['addonId'] > 0) {
+        $params['serviceid'] = $params['serviceid'] . '.' . $params['addonId'];
+    }
+
     try {
         PteroSyncInstance::get()->service_id = $params['serviceid'];
         $portsJson = pteroSyncGetOption($params, 'ports_ranges');
@@ -700,6 +705,11 @@ function pterosync_CreateAccount(array $params)
 
 function pterosync_SuspendAccount(array $params)
 {
+
+    if ($params['addonId'] > 0) {
+        $params['serviceid'] = $params['serviceid'] . '.' . $params['addonId'];
+    }
+
     try {
         $serverId = pteroSyncGetServer($params);
         if (!$serverId) throw new Exception('Failed to suspend server because it doesn\'t exist.');
@@ -715,6 +725,11 @@ function pterosync_SuspendAccount(array $params)
 
 function pterosync_UnsuspendAccount(array $params)
 {
+
+    if ($params['addonId'] > 0) {
+        $params['serviceid'] = $params['serviceid'] . '.' . $params['addonId'];
+    }
+
     try {
         $serverId = pteroSyncGetServer($params);
         if (!$serverId) throw new Exception('Failed to unsuspend server because it doesn\'t exist.');
@@ -730,6 +745,11 @@ function pterosync_UnsuspendAccount(array $params)
 
 function pterosync_TerminateAccount(array $params)
 {
+    if ($params['addonId'] > 0) {
+        $params['serviceid'] = $params['serviceid'] . '.' . $params['addonId'];
+    }
+
+
     try {
         $serverId = pteroSyncGetServer($params);
         if (!$serverId) throw new Exception('Failed to terminate server because it doesn\'t exist.');
@@ -745,6 +765,10 @@ function pterosync_TerminateAccount(array $params)
 
 function pterosync_ChangePassword(array $params)
 {
+
+    if ($params['addonId'] > 0) {
+        $params['serviceid'] = $params['serviceid'] . '.' . $params['addonId'];
+    }
 
     try {
         if (PteroSyncInstance::get()->enable_client_area_password_changer !== true) {
@@ -783,6 +807,10 @@ function pterosync_ChangePassword(array $params)
 
 function pterosync_ChangePackage(array $params)
 {
+
+    if ($params['addonId'] > 0) {
+        $params['serviceid'] = $params['serviceid'] . '.' . $params['addonId'];
+    }
 
     try {
 
