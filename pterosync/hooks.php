@@ -29,12 +29,19 @@ add_hook('ClientAreaProductDetails', 1, function ($params) {
 });
 
 add_hook('AdminAreaHeadOutput', 1, function ($params) {
+    // Only load on pterosync addon pages
+    if (!isset($_GET['module']) || $_GET['module'] !== 'pterosync') {
+        return '';
+    }
     $url = PteroSyncInstance::get()->cssPath;
     return '<link rel="stylesheet" href="' . $url . '">' . PHP_EOL;
 });
 
 add_hook('AdminAreaFooterOutput', 1, function ($params) {
-
+    // Only load on pterosync addon pages
+    if (!isset($_GET['module']) || $_GET['module'] !== 'pterosync') {
+        return '';
+    }
     $url = PteroSyncInstance::get()->jsPath;
     $urls = '<script src="' . $url . '"></script>' . PHP_EOL;
     $urls .= '<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>';
